@@ -1,0 +1,18 @@
+{
+  "common" :
+  {
+          "local_uri" : "mysql://root:root@0.0.0.0:3306/CleanB",
+          "prod_uri"  : "mysql://u0_a165:root@localhost/CleanB",
+          "gmail-user": "mahinshahriar303@gmail.com",
+          "gmail-pass": "cvppfchcdonjoorj",
+          "blog_name" : "TechVIBE",
+          "about_text": "Hello , I'm Mahin Shahriar. Currentnly I'm developing my skill. I do web backend projects with flask. I also solve problems on leetcode websites which is developing my logic. My major programming language is Python. I also want to learn Golang. I hope I will." ,
+          "num_of_post": 3,
+          "login_image" : "bootstrap-logo.img",
+          "admin_user" : "Mahin",
+          "admin_password" : "123",
+          "upload_location" : "/storage/8130-1EFD/a/CleanB/static/assets/img"
+  }
+  
+  
+}
