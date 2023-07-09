@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 mainNav.classList.add('is-fixed');
             }
         }
+        
         scrollPos = currentTop;
     });
 })

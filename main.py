@@ -5,8 +5,7 @@ import os
 import json
 from flask_mail import Mail
 
-#cd /storage/8130-1EFD/a/CleanB && python cleanb.py
-app = Flask(__name__, template_folder='tmplate')
+app = Flask(__name__, template_folder='template')
 app.secret_key = "super-secret-key"
 mail = Mail(app)
 
@@ -105,10 +104,12 @@ def logout():
 def Uploader():
   if 'user' in session and session['user']==common['admin_user']:
     if request.method == "POST":
-      f = request.files["file"]
-      f.save(os.path.join((app.config['UPLOAD_FOLDER']), secure_filename(f.filename)))
-      return "File Uploaded Successfully  "
-      
+      try:
+        f = request.files["file"]
+        f.save(os.path.join((app.config['UPLOAD_FOLDER']), secure_filename(f.filename)))
+        return redirect('/admin'), flash('File Uploaded Successfully !',"success")
+      except :
+        return redirect("/admin"), flash('Something went wrong. File upload request denied. Please Try again  !','danger')
 #========ADMIN/ Edit  SECTION=======
 @app.route('/edit/<string:sno>' , methods=['GET','POST'])
 def Edit(sno):
@@ -154,14 +155,17 @@ def contact():
     email = request.form.get('email')
     phone = request.form.get('phone')
     message = request.form.get('message')
+    if username and email and phone and message:
     # database operations
-    datas = Contact(name=username, email=email, phone=phone, msg= message)
-    db.create_all() # creating mentioned conlums at the table.
-    db.session.add(datas) # adding the datas at table.
-    db.session.commit()
-    flash("Contact Information Successfully Sent.\nThank You !",'success')
+      datas = Contact(name=username, email=email, phone=phone, msg= message)
+      db.create_all() # creating mentioned conlums at the table.
+      db.session.add(datas) # adding the datas at table.
+      db.session.commit()
+      flash("Contact Information Successfully Sent.\nThank You !",'success')
+    else:
+      flash('Required Information not inputted properly. Submit request denied . Please Try again....!', 'danger')
+      return redirect('/contact')
     
-    #this section has a error. It is under fixing.
     # mail.send_message('CleanB  : \n',
     #                     sender=email,
     #                     recipients= [common['gmail-user']],
